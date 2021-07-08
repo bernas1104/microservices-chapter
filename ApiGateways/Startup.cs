@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace ApiGateways
 {
@@ -48,6 +49,8 @@ namespace ApiGateways
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseOcelot().Wait();
 
             app.UseAuthorization();
 

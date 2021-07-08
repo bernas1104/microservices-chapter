@@ -1,16 +1,16 @@
 {
-  "ReRoutes": [
+  "Routes": [
     {
-      "DownstreamPathTemplate": "/api/catalog/{anything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostsAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
+      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+          {
+              "Host": "localhost",
+              "Port": 5001
+          }
       ],
-      "UpstreamPathTemplate": "/api/gateway/catalog/{anything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamPathTemplate": "/api/gateway/products/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     }
   ],
   "GlobalConfiguration": {
