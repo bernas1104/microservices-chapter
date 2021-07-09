@@ -1,19 +1,19 @@
 {
-  "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-          {
-              "Host": "localhost",
-              "Port": 5001
-          }
-      ],
-      "UpstreamPathTemplate": "/api/gateway/products/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+    "Routes": [
+        {
+            "UseServiceDiscovery": true,
+            "DownstreamPathTemplate": "/api/products/{everything}",
+            "DownstreamScheme": "https",
+            "ServiceName": "ProductService",
+            "UpstreamPathTemplate": "/api/gateway/products/{everything}",
+            "UpstreamHttpMethod": [ "GET", "POST" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "ServiceDiscoveryProvider": {
+            "Host": "localhost",
+            "Port": 8500,
+            "Type": "Consul"
+        }
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:44340"
-  }
 }

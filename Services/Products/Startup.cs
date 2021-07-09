@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Shared.ServiceDiscovery;
 
 namespace Products
 {
@@ -33,6 +34,7 @@ namespace Products
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Products", Version = "v1" });
             });
             services.AddMvc();
+            services.AddConsulConfig(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,8 @@ namespace Products
             {
                 endpoints.MapControllers();
             });
+
+            app.UseConsul(Configuration);
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {}
+    "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {}
   },
   "projects": {
-    "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {
+    "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
+        "projectUniqueName": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
         "projectName": "ApiGateways",
-        "projectPath": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
+        "projectPath": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
         "packagesPath": "C:\\Users\\berna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\obj\\",
+        "outputPath": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,7 +43,15 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Consul": {
+              "target": "Package",
+              "version": "[1.6.10.1, )"
+            },
             "Ocelot": {
+              "target": "Package",
+              "version": "[17.0.0, )"
+            },
+            "Ocelot.Provider.Consul": {
               "target": "Package",
               "version": "[17.0.0, )"
             },
