@@ -6,7 +6,10 @@
             "DownstreamScheme": "https",
             "ServiceName": "ProductService",
             "UpstreamPathTemplate": "/api/gateway/products/{everything}",
-            "UpstreamHttpMethod": [ "GET", "POST" ]
+            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "LoadBalancerOptions": {
+                "Type": "RoundRobin"
+            }
         }
     ],
     "GlobalConfiguration": {

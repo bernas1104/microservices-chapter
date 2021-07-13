@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {}
+    "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {}
   },
   "projects": {
-    "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {
+    "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
+        "projectUniqueName": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
         "projectName": "ApiGateways",
-        "projectPath": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
+        "projectPath": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
         "packagesPath": "C:\\Users\\berna\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\obj\\",
+        "outputPath": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

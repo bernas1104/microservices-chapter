@@ -63,7 +63,7 @@ namespace Shared.ServiceDiscovery
             );
 
             var serviceId = configuration.GetValue<string>(
-                "ConsulConfig:ServiceId"
+                Guid.NewGuid().ToString()
             );
 
             var uri = new Uri(address);

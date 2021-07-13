@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y4gM0ep6MrdrTZ0MmzppoSUcfMc8PwfIXSlUSjH1EUdjq6svMYS3HK1Vlj7qZoXYjbn7KZubDRfbJ4Wljr+dHw==",
+  "dgSpecHash": "gjnWOfmFcaklQKZ2wgX+igZyFcib6LuwbUhAprbDgBMm1/Hy25oCeMKRMUuOTuogCJzqPKRCGVJKpPihuSsW4A==",
   "success": true,
-  "projectFilePath": "c:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
+  "projectFilePath": "C:\\Users\\berna\\source\\repos\\ms-csharp-chapter\\ApiGateways\\ApiGateways.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\berna\\.nuget\\packages\\consul\\1.6.10.1\\consul.1.6.10.1.nupkg.sha512",
     "C:\\Users\\berna\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
