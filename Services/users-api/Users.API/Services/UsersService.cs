@@ -32,7 +32,7 @@ namespace Users.API.Services
                 return null;
             }
 
-            var user = _mapper.Map<User>(model);
+            var user = User.Create(model.FullName, model.Email);
 
             user = await _usersRepository.CreateAsync(user);
 
@@ -55,22 +55,14 @@ namespace Users.API.Services
 
         public async Task UpdateUser(UserInputModel model, Guid id)
         {
-            var userExists = await _usersRepository.GetByIdAsync(id.ToString());
+            var user = await _usersRepository.GetByIdAsync(id.ToString());
 
-            if (userExists == null)
+            if (user == null)
             {
                 return;
             }
 
-            var user = new User()
-            {
-                Id = userExists.Id,
-                FullName = model.FullName,
-                Email = model.Email,
-                CreatedAt = userExists.CreatedAt,
-                UpdatedAt = DateTime.Now,
-                DeletedAt = null
-            };
+            user.Update(model.Email);
 
             await _usersRepository.UpdateAsync(user);
         }
