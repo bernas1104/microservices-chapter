@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Notifications.API.Consumers;
 using Shared.ServiceDiscovery;
 
 namespace Notifications.API
@@ -40,6 +41,8 @@ namespace Notifications.API
                     );
                 }
             );
+
+            services.AddHostedService<UserCreatedConsumer>();
 
             services.AddConsulConfig(Configuration);
         }
