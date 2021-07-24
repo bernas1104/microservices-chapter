@@ -15,8 +15,10 @@ using Microsoft.OpenApi.Models;
 using Shared.ServiceDiscovery;
 using Users.API.Services;
 using Users.API.Services.Interfaces;
+using Users.Domain.Interfaces.MessageBus;
 using Users.Domain.Interfaces.Repositories;
 using Users.Infra.Context;
+using Users.Infra.MessageBus;
 using Users.Infra.Repositories;
 
 namespace Users.API
@@ -64,6 +66,7 @@ namespace Users.API
             services.AddScoped<UsersDbContext>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IMessageBusClient, RabbitMQClient>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

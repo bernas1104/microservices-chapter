@@ -23,6 +23,10 @@ namespace Users.Domain.Entities
 
         public static User Create(string fullName, string email)
         {
+            // Validações
+            // 1. É um e-mail válido?
+            // 3. Etc...
+
             var user = new User(Guid.NewGuid(), fullName, email);
 
             user.AddEvent(new UserCreated(user.Id, user.FullName, user.Email));
@@ -32,6 +36,11 @@ namespace Users.Domain.Entities
 
         public void Update(string email)
         {
+            // Validações sobre o e-mail.
+            // 1. É um e-mail válido?
+            // 2. E-mail novo é igual ao atual?
+            // 3. Etc...
+
             var oldEmail = Email;
 
             Email = email;
