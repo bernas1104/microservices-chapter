@@ -1,93 +1,41 @@
 using System;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Notifications.API.Dtos.InputModels;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 
 namespace Notifications.API.Consumers
 {
-    public class UserCreatedConsumer : BackgroundService
+    public class UserCreatedConsumer :
+        AbstractConsumer<UserCreatedInputModel>
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IConnection _connection;
-        private readonly IModel _channel;
-        private const string Queue = "notification-service/user-created";
-        private const string Exchange = "notification-service";
-
         public UserCreatedConsumer(
             IServiceProvider serviceProvider,
             IConfiguration configuration
+        ) : base(serviceProvider, configuration)
+        {
+            Queue = "notification-service/user-created";
+
+            _routingKey = "user-created";
+
+            _exchange = "user-service";
+
+            InitializeEventBus();
+        }
+
+        protected override void LogMessageReceived(
+            UserCreatedInputModel message
         )
         {
-            _serviceProvider = serviceProvider;
-
-            var connectionFactory = new ConnectionFactory
-            {
-                HostName = "localhost",
-                UserName = "root",
-                Password = "123456"
-            };
-
-            _connection = connectionFactory.CreateConnection(
-                "notifications-service-consumer"
-            );
-
-            _channel = _connection.CreateModel();
-            // _channel.ExchangeDeclare(
-            //     exchange: Exchange,
-            //     type: ExchangeType.Topic,
-            //     durable: true
-            // );
-            _channel.QueueDeclare(
-                queue: Queue,
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null
-            );
-            _channel.QueueBind(
-                queue: Queue,
-                exchange: "user-service",
-                routingKey: "user-created"
+            Console.WriteLine(
+                $"Message UserCreated receveid with Id {message.Id}"
             );
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task SendEmail(UserCreatedInputModel message)
         {
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (sender, eventArgs) =>
-            {
-                var contentArray = eventArgs.Body.ToArray();
-
-                var contentString = Encoding.UTF8.GetString(contentArray);
-
-                var message = JsonConvert
-                    .DeserializeObject<UserCreatedInputModel>(
-                        contentString
-                    );
-
-                // await SendEmail(message)
-
-                Console.WriteLine(
-                    $"Message UserCreated receveid with Id {message.Id}"
-                );
-
-                _channel.BasicAck(eventArgs.DeliveryTag, false);
-            };
-
-            _channel.BasicConsume(
-                queue: Queue,
-                autoAck: false,
-                consumer: consumer
-            );
-
-            return Task.CompletedTask;
+            // throw new NotImplementedException();
+            await Task.Delay(1);
+            return;
         }
     }
 }
