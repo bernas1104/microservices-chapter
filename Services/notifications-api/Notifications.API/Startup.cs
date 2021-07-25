@@ -43,6 +43,7 @@ namespace Notifications.API
             );
 
             services.AddHostedService<UserCreatedConsumer>();
+            services.AddHostedService<UserUpdatedConsumer>();
 
             services.AddConsulConfig(Configuration);
         }
