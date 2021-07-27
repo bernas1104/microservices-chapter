@@ -27,7 +27,7 @@ namespace Notifications.API.Consumers
         )
         {
             Console.WriteLine(
-                $"Message UserCreated receveid with Id {message.Id}"
+                $"Message UserCreated received with Id {message.Id}"
             );
         }
 
