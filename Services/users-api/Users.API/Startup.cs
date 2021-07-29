@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +36,30 @@ namespace Users.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var healthCheck = services.AddHealthChecksUI(
+                setupSettings: setup =>
+                {
+                    setup.DisableDatabaseMigrations();
+                    setup.MaximumHistoryEntriesPerEndpoint(6);
+                }
+            ).AddInMemoryStorage();
+
+            var builder = services.AddHealthChecks();
+            builder.AddProcessAllocatedMemoryHealthCheck(
+                500 * 1024 * 1024,
+                "Process Memory",
+                tags: new[] { "self" }
+            );
+            builder.AddPrivateMemoryHealthCheck(
+                500 * 1024 * 1024,
+                "Private memory",
+                tags: new[] { "self" }
+            );
+            builder.AddNpgSql(
+                Configuration["ConnectionStrings:DefaultConnection"],
+                tags: new[] { "services" }
+            );
+
             services.AddDbContext<UsersDbContext>(
                 opt =>
                 {
@@ -71,6 +97,16 @@ namespace Users.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHealthChecks(
+                "/health",
+                new HealthCheckOptions()
+                {
+                    AllowCachingResponses = false,
+                    Predicate = r => r.Tags.Contains("self"),
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                }
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,10 +125,12 @@ namespace Users.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllers();
+                }
+            );
 
             app.UseConsul(Configuration);
         }
