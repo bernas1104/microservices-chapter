@@ -78,5 +78,12 @@ namespace Users.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("timeout")]
+        public async Task<IActionResult> FakeTimeout()
+        {
+            await Task.Delay(6000);
+            return Ok();
+        }
     }
 }

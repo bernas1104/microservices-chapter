@@ -45,28 +45,35 @@ namespace Users.API
             ).AddInMemoryStorage();
 
             var builder = services.AddHealthChecks();
+
             builder.AddProcessAllocatedMemoryHealthCheck(
                 500 * 1024 * 1024,
                 "Process Memory",
                 tags: new[] { "self" }
             );
+
             builder.AddPrivateMemoryHealthCheck(
                 500 * 1024 * 1024,
                 "Private memory",
                 tags: new[] { "self" }
             );
+
             builder.AddNpgSql(
-                Configuration["ConnectionStrings:DefaultConnection"],
-                tags: new[] { "services" }
+                Configuration.GetConnectionString("DefaultConnection"),
+                tags: new[] { "self" }
             );
+
+            builder.AddDbContextCheck<UsersDbContext>();
 
             services.AddDbContext<UsersDbContext>(
                 opt =>
                 {
-                    opt.UseNpgsql(Configuration.GetConnectionString(
-                        "DefaultConnection"
-                    ),
-                    b => b.MigrationsAssembly("Users.Infra"));
+                    opt.UseNpgsql(
+                        Configuration.GetConnectionString(
+                            "DefaultConnection"
+                        ),
+                        b => b.MigrationsAssembly("Users.Infra")
+                    );
                 }
             );
 

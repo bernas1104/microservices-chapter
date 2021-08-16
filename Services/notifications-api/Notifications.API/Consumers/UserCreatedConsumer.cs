@@ -33,8 +33,10 @@ namespace Notifications.API.Consumers
 
         protected override async Task SendEmail(UserCreatedInputModel message)
         {
-            // throw new NotImplementedException();
-            await Task.Delay(1);
+            await Task.Delay(5000);
+
+            Console.WriteLine("E-mail enviado!");
+
             return;
         }
     }

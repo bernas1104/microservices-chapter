@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
 
 namespace ApiGateways
 {
@@ -30,7 +31,7 @@ namespace ApiGateways
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddOcelot().AddConsul();
+            services.AddOcelot().AddConsul().AddPolly();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateways", Version = "v1" });

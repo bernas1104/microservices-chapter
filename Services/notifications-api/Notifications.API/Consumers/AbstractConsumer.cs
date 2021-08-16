@@ -32,6 +32,7 @@ namespace Notifications.API.Consumers
             var connectionFactory = new ConnectionFactory
             {
                 HostName = "localhost",
+                Port = 5672,
                 UserName = "root",
                 Password = "123456"
             };
@@ -41,6 +42,13 @@ namespace Notifications.API.Consumers
             );
 
             _channel = _connection.CreateModel();
+            _channel.ExchangeDeclare(
+                exchange: _exchange,
+                type: ExchangeType.Topic,
+                durable: false,
+                autoDelete: false,
+                arguments: null
+            );
             _channel.QueueDeclare(
                 queue: Queue,
                 durable: false,

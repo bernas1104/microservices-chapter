@@ -2,13 +2,18 @@
     "Routes": [
         {
             "UseServiceDiscovery": true,
-            "DownstreamPathTemplate": "/api/products/{everything}",
+            "DownstreamPathTemplate": "/api/v1/{everything}",
             "DownstreamScheme": "https",
-            "ServiceName": "ProductService",
-            "UpstreamPathTemplate": "/api/gateway/products/{everything}",
+            "ServiceName": "UsersService",
+            "UpstreamPathTemplate": "/api/gateway/{everything}",
             "UpstreamHttpMethod": [ "GET", "POST" ],
             "LoadBalancerOptions": {
                 "Type": "RoundRobin"
+            },
+            "QoSOptions": {
+                "ExceptionsAllowedBeforeBreaking": 3,
+                "DurationOfBreak": 10000,
+                "TimeoutValue": 5000
             }
         }
     ],

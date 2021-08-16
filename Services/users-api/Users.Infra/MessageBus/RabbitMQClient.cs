@@ -43,7 +43,7 @@ namespace Users.Infra.MessageBus
             channel.ExchangeDeclare(
                 exchange: exchange,
                 type: ExchangeType.Topic,
-                durable: true
+                durable: false
             );
 
             Console.WriteLine($"{exchange}->{routingKey}");
