@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,28 @@ namespace Notifications.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var healthCheck = services.AddHealthChecksUI(
+                setupSettings: setup =>
+                {
+                    setup.DisableDatabaseMigrations();
+                    setup.MaximumHistoryEntriesPerEndpoint(6);
+                }
+            ).AddInMemoryStorage();
+
+            var builder = services.AddHealthChecks();
+
+            builder.AddProcessAllocatedMemoryHealthCheck(
+                500 * 1024 * 1024,
+                "Process Memory",
+                tags: new[] { "self" }
+            );
+
+            builder.AddPrivateMemoryHealthCheck(
+                500 * 1024 * 1024,
+                "Private memory",
+                tags: new[] { "self" }
+            );
+
             services.AddControllers();
             services.AddSwaggerGen(
                 c =>
@@ -50,6 +74,16 @@ namespace Notifications.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHealthChecks(
+                "/health",
+                new HealthCheckOptions()
+                {
+                    AllowCachingResponses = false,
+                    Predicate = r => r.Tags.Contains("self"),
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                }
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
