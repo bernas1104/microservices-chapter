@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Shared.ServiceDiscovery;
+using Users.API.Middlewares;
 using Users.API.Services;
 using Users.API.Services.Interfaces;
 using Users.Domain.Interfaces.MessageBus;
@@ -77,6 +78,13 @@ namespace Users.API
                 }
             );
 
+            services.AddMvc(
+                options =>
+                {
+                    options.EnableEndpointRouting = false;
+                }
+            );
+
             services.AddControllers();
             services.AddSwaggerGen(
                 c =>
@@ -131,6 +139,8 @@ namespace Users.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<InstanceIdMiddleware>();
 
             app.UseEndpoints(
                 endpoints =>
