@@ -16,11 +16,3 @@ services:
             POSTGRES_PASSWORD: usersdb-123456
         ports:
             - 5432:5432
-
-    MeetingsDatabase:
-        image: postgres
-        environment:
-            POSTGRES_USER: meetingsdb
-            POSTGRES_PASSWORD: meetingsdb-123456
-        ports:
-            - 5433:5432
