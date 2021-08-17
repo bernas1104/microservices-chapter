@@ -62,14 +62,13 @@ namespace Shared.ServiceDiscovery
                 "ConsulConfig:ServiceName"
             );
 
-            var serviceId = configuration.GetValue<string>(
-                Guid.NewGuid().ToString()
-            );
+            var serviceId = Guid.NewGuid().ToString();
 
             var uri = new Uri(address);
 
             var healthCheck = new AgentServiceCheck()
             {
+                Name = configuration.GetValue<string>("ConsulConfig:ServiceName"),
                 HTTP = $"http://{uri.Host}:{uri.Port-1}/health",
                 Interval = TimeSpan.FromSeconds(30),
                 // DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
