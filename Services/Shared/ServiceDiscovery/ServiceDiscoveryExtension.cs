@@ -68,12 +68,20 @@ namespace Shared.ServiceDiscovery
 
             var uri = new Uri(address);
 
+            var healthCheck = new AgentServiceCheck()
+            {
+                HTTP = $"http://{uri.Host}:{uri.Port-1}/health",
+                Interval = TimeSpan.FromSeconds(30),
+                // DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
+            };
+
             var registration = new AgentServiceRegistration()
             {
                 ID = serviceId,
                 Name = serviceName,
                 Address = $"{uri.Host}",
-                Port = uri.Port
+                Port = uri.Port,
+                Check = healthCheck,
             };
 
             logger.LogInformation("Registering with Consul");
