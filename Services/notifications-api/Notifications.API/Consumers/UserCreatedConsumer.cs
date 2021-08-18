@@ -35,9 +35,7 @@ namespace Notifications.API.Consumers
         {
             await Task.Delay(5000);
 
-            Console.WriteLine("E-mail enviado!");
-
-            return;
+            Console.WriteLine("E-mail enviado para avisar sobre criação!");
         }
     }
 }
